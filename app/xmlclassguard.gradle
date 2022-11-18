@@ -1,0 +1,32 @@
+apply plugin: "xml-class-guard"
+
+//以下均为非必须，根据自己需要配置即可
+xmlClassGuard {
+    /*
+     * 是否查找约束布局的constraint_referenced_ids属性的值，并添加到AabResGuard的白名单中，
+     * 是的话，要求你在XmlClassGuard前依赖AabResGuard插件，默认false
+     */
+    findConstraintReferencedIds = true
+    //前缀名称
+    prefixName = "Large"
+    //需要修改的res文件目录
+    changeXmlPkg = ["drawable","layout","mipmap-hdpi"]
+    //生成java垃圾文件的目录 目前只能是自己根目录
+    packageName = "com.leos.superplugin"
+    //生成java垃圾文件中的方法数
+    classMethodCount = 20
+    //生成java Activity文件的数量
+    activityClassCount = 50
+    //生成layout文件的数量
+    layoutClassCount = 50
+    //生成layout文件中view的数量
+    layoutClassMethodCount = 15
+    //生成drawable文件的数量
+    drawableClassCount = 50
+    //混淆映射文件
+    mappingFile = file("xml-class-mapping.txt")
+    //更改manifest里package属性  多个module的情况用,分割
+    packageChange = ["com.leos.superplugin": "con.large.crede"]
+    //移动目录，支持同时移动多个目录
+    moveDir = ["com.leos.superplugin": "con.large.crede"]
+}

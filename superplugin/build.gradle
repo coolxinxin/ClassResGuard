@@ -1,0 +1,40 @@
+plugins {
+    id 'kotlin'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'maven-publish'
+}
+
+publishing {
+    publications {
+        release(MavenPublication) {
+            from components.java
+            groupId 'com.leos.superplugin'
+            artifactId 'XmlClassGuard'
+            version "1.0.0"
+        }
+    }
+}
+
+sourceSets {
+    main.java.srcDirs += "$buildDir/generated/sources/java-templates/java/main"
+}
+
+compileKotlin {
+    dependsOn 'copyJavaTemplates'
+    kotlinOptions.freeCompilerArgs = ["-Xallow-result-return-type"]
+}
+
+task copyJavaTemplates(type: Copy) {
+    from 'src/main/java-templates'
+    into "$buildDir/generated/sources/java-templates/java/main"
+    expand('projectVersion': "1.0.0")
+    filteringCharset = 'UTF-8'
+}
+
+dependencies {
+    compileOnly gradleApi()
+    api 'org.codehaus.groovy:groovy-xml:3.0.9'
+    api 'com.squareup:javapoet:1.13.0'
+    compileOnly 'com.android.tools.build:gradle:7.3.1'
+    compileOnly "com.bytedance.android:aabresguard-plugin:0.1.10"
+}
