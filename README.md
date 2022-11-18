@@ -15,6 +15,7 @@
 ## 使用
 
 没上传到maven,需要clone此项目,依赖到本地使用
+
 1.在setting.gradle里配置
 ```
 pluginManagement {
