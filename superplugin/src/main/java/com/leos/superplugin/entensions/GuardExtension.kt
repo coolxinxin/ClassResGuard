@@ -25,11 +25,15 @@ open class GuardExtension {
 
     var moveDir = HashMap<String, String>()
 
-    var classMethodCount = 3
+    var activityClassMethodCount = 3
 
     var packageName = "com.leos.superplugin"
 
     var activityClassCount = 10
+
+    var normalClassCount = 10
+
+    var normalClassMethodCount = 3
 
     var layoutClassCount = 10
 

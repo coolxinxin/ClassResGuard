@@ -13,10 +13,14 @@ xmlClassGuard {
     changeXmlPkg = ["drawable","layout","mipmap-hdpi"]
     //生成java垃圾文件的目录 目前只能是自己根目录
     packageName = "com.leos.superplugin"
-    //生成java垃圾文件中的方法数
-    classMethodCount = 20
+    //生成java Activity垃圾文件中的方法数
+    activityClassMethodCount = 20
     //生成java Activity文件的数量
     activityClassCount = 50
+    //生成java 普通垃圾文件中的方法数
+    normalClassMethodCount = 20
+    //生成java 普通文件的数量
+    normalClassCount = 50
     //生成layout文件的数量
     layoutClassCount = 50
     //生成layout文件中view的数量

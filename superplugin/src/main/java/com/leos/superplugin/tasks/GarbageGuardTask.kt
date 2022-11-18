@@ -83,6 +83,11 @@ open class GarbageGuardTask @Inject constructor(
                 javaDir,
                 project.manifestFile())
         }
+        for (i in 0 until guardExtension.normalClassCount) {
+            generateNormalClass(guardExtension.packageName,
+                generateActivityName(),
+                javaDir)
+        }
         for (i in 0 until guardExtension.drawableClassCount) {
             generateDrawable(File(drawableDir, "${generateXmlName()}.xml"))
         }
@@ -104,6 +109,19 @@ open class GarbageGuardTask @Inject constructor(
         return sb.toString()
     }
 
+    private fun generateNormalClass(pkgName: String, className: String, file: File) {
+        val typeBuilder = TypeSpec.classBuilder(className)
+        typeBuilder.addModifiers(Modifier.PUBLIC)
+        for (i in 0 until guardExtension.normalClassMethodCount) {
+            val methodName = generateText()
+            val methodBuilder = MethodSpec.methodBuilder(methodName)
+            generateMethods(methodBuilder)
+            typeBuilder.addMethod(methodBuilder.addModifiers(Modifier.PRIVATE).build())
+        }
+        val fileBuilder = JavaFile.builder(pkgName, typeBuilder.build())
+        fileBuilder.build().writeTo(file)
+    }
+
     private fun generateActivityClass(
         pkgName: String, className: String, xmlName: String, file: File,
         manifestFile: File,
@@ -117,7 +135,7 @@ open class GarbageGuardTask @Inject constructor(
             .addParameter(bundleClassName, "savedInstanceState")
             .addStatement("super.onCreate(savedInstanceState)")
             .addStatement("setContentView(R.layout.${xmlName})").build())
-        for (i in 0 until guardExtension.classMethodCount) {
+        for (i in 0 until guardExtension.activityClassMethodCount) {
             val methodName = generateText()
             val methodBuilder = MethodSpec.methodBuilder(methodName)
             generateMethods(methodBuilder)
@@ -155,20 +173,34 @@ open class GarbageGuardTask @Inject constructor(
         when (random.nextInt(2)) {
             0 -> {
                 for (i in 0..3) {
-                    methodBuilder.addCode("String text$i = \"${generateText()}\";\n")
+                    methodBuilder.addCode("String ${getStringText()} = \"${generateText()}\";\n")
                 }
             }
             1 -> {
-                methodBuilder.addCode(" System.out.println(\"${generateText()}\");\n")
+                methodBuilder.addCode("System.out.println(\"${generateText()}\");\n")
             }
             else -> {
                 for (i in 0..2) {
-                    methodBuilder.addCode("int ${abcAndABC[random.nextInt(abcAndABC.size)]} = ${
-                        random.nextInt(100)
-                    }; \n")
+                    methodBuilder.addCode("int ${getIntText()} = ${random.nextInt(100)}; \n")
                 }
             }
         }
+    }
+
+    private fun getStringText(): String {
+        val name = StringBuilder()
+        for (i in 0..5) {
+            name.append(abc[random.nextInt(abc.size)])
+        }
+        return name.toString()
+    }
+
+    private fun getIntText(): String {
+        val name = StringBuilder()
+        for (i in 0..2) {
+            name.append(abc[random.nextInt(abc.size)])
+        }
+        return name.toString()
     }
 
     private fun generateLayoutText(): String {
