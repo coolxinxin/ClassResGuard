@@ -2,7 +2,7 @@
 
 ## 前言
 此项目是在[XmlClassGuard](https://github.com/liujingxing/XmlClassGuard)基础上修改的,
-因原作者不满足自己的需求,所以自己拉下来改了一个Task的功能(在所有类名前加前缀,原项目是修改成ABCD之类的),
+因原项目不满足自己的需求,所以自己拉下来改了一个Task的功能(在所有类名前加前缀,原项目是修改成ABCD之类的),
 并且新增了两个Task(修改所有res中的文件,添加垃圾文件)
 这是一个可以给所有类添加前缀,给所有res文件添加前缀,并且图片会自动在layout中换成最新的名称
 可以添加垃圾类(普通java class,Activity class,layout,drawable,并且Activity会
