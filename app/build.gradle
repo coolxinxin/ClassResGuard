@@ -4,7 +4,7 @@ plugins {
     id 'android-junk-code'
 }
 
-apply from: 'aabresguard.gradle'
+//apply from: 'aabresguard.gradle'
 
 apply from: 'xmlclassguard.gradle'
 

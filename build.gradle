@@ -2,7 +2,6 @@
 
 buildscript {
     dependencies {
-        classpath "com.bytedance.android:aabresguard-plugin:0.1.10"
         classpath "com.leos.superplugin:XmlClassGuard:1.0.0"
         classpath "com.github.qq549631030:android-junk-code:1.1.6"
     }

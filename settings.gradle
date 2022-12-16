@@ -5,7 +5,6 @@ pluginManagement {
         mavenCentral()
         mavenLocal()
         maven { url 'https://jitpack.io' }
-        maven { url 'https://raw.githubusercontent.com/martinloren/AabResGuard/mvn-repo' }
     }
 }
 dependencyResolutionManagement {
@@ -13,7 +12,6 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://raw.githubusercontent.com/martinloren/AabResGuard/mvn-repo' }
     }
 }
 rootProject.name = "SuperPlugin"

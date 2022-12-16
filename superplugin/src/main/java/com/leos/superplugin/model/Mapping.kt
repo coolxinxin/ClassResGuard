@@ -1,14 +1,6 @@
 package com.leos.superplugin.model
 
-import com.leos.superplugin.utils.findLocationProject
-import com.leos.superplugin.utils.getDirPath
-import com.leos.superplugin.utils.getSuffix
-import com.leos.superplugin.utils.insertImportXxxIfAbsent
-import com.leos.superplugin.utils.javaDir
-import com.leos.superplugin.utils.manifestFile
-import com.leos.superplugin.utils.removeSuffix
-import com.leos.superplugin.utils.toLetterStr
-import com.leos.superplugin.utils.toUpperLetterStr
+import com.leos.superplugin.utils.*
 import groovy.xml.XmlParser
 import org.gradle.api.Project
 import java.io.BufferedWriter
@@ -156,10 +148,5 @@ class Mapping {
         return h xor (h ushr 16)
     }
 
-
-    private fun File.findPackage(): String? {
-        val rootNode = XmlParser(false, false).parse(this)
-        return rootNode.attribute("package")?.toString()
-    }
 
 }

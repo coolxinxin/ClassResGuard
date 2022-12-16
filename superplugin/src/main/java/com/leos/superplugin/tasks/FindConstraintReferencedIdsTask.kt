@@ -1,6 +1,5 @@
 package com.leos.superplugin.tasks
 
-import com.bytedance.android.plugin.extensions.AabResGuardExtension
 import com.leos.superplugin.utils.isAndroidProject
 import com.leos.superplugin.utils.resDir
 import groovy.util.Node
@@ -17,8 +16,8 @@ import java.util.*
  */
 open class FindConstraintReferencedIdsTask : DefaultTask() {
 
-    private val aabResGuard: AabResGuardExtension =
-        project.extensions.getByName("aabResGuard") as AabResGuardExtension
+//    private val aabResGuard: AabResGuardExtension =
+//        project.extensions.getByName("aabResGuard") as AabResGuardExtension
 
     init {
         group = "guard"
@@ -26,17 +25,17 @@ open class FindConstraintReferencedIdsTask : DefaultTask() {
 
     @TaskAction
     fun execute() {
-        val layoutDirs = mutableListOf<File>()
-        project.rootProject.subprojects {
-            if (it.isAndroidProject()) {
-                it.resDir().listFiles { file ->
-                    file.isDirectory && file.name.startsWith("layout")   //过滤res目录下的layout
-                }?.apply { layoutDirs.addAll(this) }
-            }
-        }
-        val set = findReferencedIds(layoutDirs)
-        (aabResGuard.whiteList as HashSet).addAll(set)
-        println("ids size is ${set.size} \n$set")
+//        val layoutDirs = mutableListOf<File>()
+//        project.rootProject.subprojects {
+//            if (it.isAndroidProject()) {
+//                it.resDir().listFiles { file ->
+//                    file.isDirectory && file.name.startsWith("layout")   //过滤res目录下的layout
+//                }?.apply { layoutDirs.addAll(this) }
+//            }
+//        }
+//        val set = findReferencedIds(layoutDirs)
+//        (aabResGuard.whiteList as HashSet).addAll(set)
+//        println("ids size is ${set.size} \n$set")
     }
 
     private fun findReferencedIds(layoutDirs: List<File>): Set<String> {

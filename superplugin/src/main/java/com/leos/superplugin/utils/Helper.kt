@@ -1,5 +1,6 @@
 package com.leos.superplugin.utils
 
+import groovy.xml.XmlParser
 import java.io.File
 import java.util.regex.Pattern
 
@@ -52,4 +53,9 @@ fun File.insertImportXxxIfAbsent(newPackage: String) {
         builder.append(text.substring(packageIndex + packageStatement.length))
     }
     writeText(builder.toString())
+}
+
+fun File.findPackage(): String? {
+    val rootNode = XmlParser(false, false).parse(this)
+    return rootNode.attribute("package")?.toString()
 }

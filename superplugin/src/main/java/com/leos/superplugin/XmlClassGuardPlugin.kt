@@ -25,6 +25,7 @@ class XmlClassGuardPlugin : Plugin<Project> {
             XmlNameChangeGuardTask::class.java,
             guardExtension)
         project.tasks.create("garbageGuard", GarbageGuardTask::class.java, guardExtension)
+        project.tasks.create("superXmlGuard", SuperXmlClassGuard::class.java, guardExtension)
 
         val android = project.extensions.getByName("android") as AppExtension
         project.afterEvaluate {
