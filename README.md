@@ -29,7 +29,7 @@ pluginManagement {
 ```
 buildscript {
     dependencies {
-        classpath "com.leos.superplugin:ClassResGuard:1.0.0"
+        classpath "com.github.coolxinxin:ClassResGuard:1.0.0"
     }
 }
 ```

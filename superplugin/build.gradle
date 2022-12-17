@@ -8,7 +8,7 @@ publishing {
     publications {
         release(MavenPublication) {
             from components.java
-            groupId 'com.leos.superplugin'
+            groupId 'com.github.coolxinxin'
             artifactId 'ClassResGuard'
             version "1.0.0"
         }
