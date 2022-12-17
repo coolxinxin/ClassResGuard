@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<ProgressBar android:id="@+id/cckbknctelmezuqn" android:layout_width="98dp" android:layout_height="48dp"/>
+<RelativeLayout android:id="@+id/kzkgsavxmudufifo" android:layout_width="112dp" android:layout_height="77dp"/>
+<SurfaceView android:id="@+id/szivnuwvivncpvgx" android:layout_width="91dp" android:layout_height="41dp"/>
+<TextView android:id="@+id/lelgvahghvpzsazl" android:layout_width="100dp" android:layout_height="11dp"/>
+<SurfaceView android:id="@+id/ubtxgcoteodvyqwt" android:layout_width="33dp" android:layout_height="23dp"/>
+<TextView android:id="@+id/huamdudovhrnbjrd" android:layout_width="103dp" android:layout_height="72dp"/>
+<Spinner android:id="@+id/tiafwhmnewrxilvf" android:layout_width="149dp" android:layout_height="77dp"/>
+<LinearLayout android:id="@+id/creddvfozgbzbtqe" android:layout_width="141dp" android:layout_height="17dp"/>
+<SurfaceView android:id="@+id/zsoylrjzfbesflbn" android:layout_width="123dp" android:layout_height="27dp"/>
+<SeekBar android:id="@+id/abnvuutdsvjqigpv" android:layout_width="137dp" android:layout_height="44dp"/>
+</LinearLayout>

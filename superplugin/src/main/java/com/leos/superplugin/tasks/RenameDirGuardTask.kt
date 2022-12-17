@@ -1,9 +1,7 @@
 package com.leos.superplugin.tasks
 
-import com.leos.superplugin.entension.ConfigExtension
-import com.leos.superplugin.entension.getDirName
-import com.leos.superplugin.entension.javaDir
-import com.leos.superplugin.entension.manifestFile
+import com.android.build.gradle.BaseExtension
+import com.leos.superplugin.entension.*
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 import java.io.File
@@ -43,16 +41,16 @@ open class RenameDirGuardTask @Inject constructor(
 
     private fun workDir(file: File) {
         val listFiles = file.listFiles()
-        listFiles?.forEach {
+        listFiles?.forEachIndexed { index, it ->
             if (it.isDirectory) {
                 workDir(it)
             } else {
-                renameDir(it)
+                renameDir(it, index == listFiles.size - 1)
             }
         }
     }
 
-    private fun renameDir(file: File) {
+    private fun renameDir(file: File, needRename: Boolean) {
         val oldName = file.parent.getDirName()
         val dirPrefixNameArray = configExtension.dirPrefixName
         if (dirPrefixNameArray.isEmpty()) {
@@ -63,25 +61,60 @@ open class RenameDirGuardTask @Inject constructor(
         } else {
             dirPrefixNameArray[random.nextInt(dirPrefixNameArray.size)]
         }
+        val startIndex = file.parent.replace("\\", ".").lastIndexOf("src.main.java.")
+        if (startIndex == -1) {
+            throw IllegalArgumentException("index exception, index can not be -1")
+        }
         val newName = "${dirPrefixName.lowercase()}$oldName"
         val newDirPath = file.parentFile.parent + "\\${newName}"
-        file.renameTo(File(newDirPath))
+        val oldClassPath =
+            file.parent.replace("\\", ".").substring(startIndex + 14, file.parent.length)
+        val newClassPath =
+            newDirPath.replace("\\", ".").substring(startIndex + 14, newDirPath.length)
+        obfuscateAllClass(project.javaDir(), oldClassPath, newClassPath)
+        val manifestFile = project.manifestFile()
+        val xmlContent = mutableListOf<String>()
+        var text = manifestFile.readText()
+        findClassByManifest(
+            text,
+            xmlContent,
+            (project.extensions.getByName("android") as BaseExtension).namespace
+        )
+        for (classPath in xmlContent) {
+            val removeClass = classPath.substring(0, classPath.lastIndexOf("."))
+            val dirName = removeClass.getClassName()
+            if (dirName == oldName) {
+                text = text.replace(classPath, "${newClassPath}.${classPath.getClassName()}")
+            }
+        }
+        manifestFile.writeText(text)
+        if (needRename)
+            file.parentFile.renameTo(File(newDirPath))
+    }
+
+    private fun obfuscateAllClass(file: File, oldClassPath: String, newClassPath: String) {
+        file.listFiles()?.forEach {
+            if (it.isDirectory) {
+                obfuscateAllClass(it, oldClassPath, newClassPath)
+            } else {
+                replaceClassText(it, oldClassPath, newClassPath)
+            }
+        }
+    }
+
+    private fun replaceClassText(file: File, oldClassPath: String, newClassPath: String) {
         val sb = StringBuilder()
-        var oldPackage = ""
-        var newPackage = ""
         file.readLines().forEach {
             if (it.startsWith("package")) {
-                oldPackage = it
-                sb.append(it.replace(oldName, newName).apply {
-                    newPackage = this
-                }).append("\n")
+                sb.append(it.replace(oldClassPath, newClassPath)).append("\n")
+            } else if (it.startsWith("import")
+                && it.contains(configExtension.dirPackage)
+            ) {
+                sb.append(it.replaceFirst(oldClassPath, newClassPath)).append("\n")
             } else {
                 sb.append(it).append("\n")
             }
         }
         file.writeText(sb.toString())
-        val manifestFile = project.manifestFile()
-        manifestFile.writeText(manifestFile.readText().replace(oldPackage, newPackage))
     }
-
 }

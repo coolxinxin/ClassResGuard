@@ -101,6 +101,8 @@ open class RenameClassGuardTask @Inject constructor(
                     for (classPath in xmlContent) {
                         val className = classPath.getClassName()
                         if (className == oldName) {
+                            println("classPath:$classPath")
+                            println("newClassPath:$newClassPath")
                             text = text.replace(classPath, newClassPath)
                         }
                     }

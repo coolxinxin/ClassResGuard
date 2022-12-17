@@ -1,4 +1,4 @@
-package com.leos.superplugin.app
+package com.leos.superplugin.leoapp
 
 import android.app.Application
 
@@ -7,7 +7,7 @@ import android.app.Application
  * @time: 2022/11/17
  * @desc:
  */
-class LargeMyApplication  : Application(){
+class LeoLeoLargeMyApplication  : Application(){
 
     companion object{
         const val TEXT = "text"

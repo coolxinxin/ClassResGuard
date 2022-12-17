@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<FrameLayout android:id="@+id/ephypzchfifnnnoi" android:layout_width="55dp" android:layout_height="8dp"/>
+<EditText android:id="@+id/wshkgumuougftlcm" android:layout_width="145dp" android:layout_height="69dp"/>
+<CheckBox android:id="@+id/hheedjmounigmzwk" android:layout_width="124dp" android:layout_height="33dp"/>
+<TextView android:id="@+id/rfprveoimjhvfwxx" android:layout_width="84dp" android:layout_height="33dp"/>
+<SearchView android:id="@+id/fvgbsoqqdybyiiid" android:layout_width="62dp" android:layout_height="51dp"/>
+<SearchView android:id="@+id/emujlngdjwaqirth" android:layout_width="75dp" android:layout_height="46dp"/>
+<CheckBox android:id="@+id/aolcskrvzkaswcdp" android:layout_width="145dp" android:layout_height="61dp"/>
+<ProgressBar android:id="@+id/ahvyoefkfanwiior" android:layout_width="7dp" android:layout_height="43dp"/>
+<LinearLayout android:id="@+id/dxuvqakgbewuhtll" android:layout_width="145dp" android:layout_height="13dp"/>
+<FrameLayout android:id="@+id/pnpfnpkclyfpmbez" android:layout_width="91dp" android:layout_height="70dp"/>
+</LinearLayout>

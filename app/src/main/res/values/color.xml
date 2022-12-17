@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="leo_8baa64">#8baa64</color>
+    <color name="leo_3ff49b">#3ff49b</color>
+    <color name="leo_0b1c90">#0b1c90</color>
+    <color name="leo_2242ea">#2242ea</color>
+    <color name="leo_9ca243">#9ca243</color>
+    <color name="leo_6638e0">#6638e0</color>
+    <color name="leo_0c51a0">#0c51a0</color>
+    <color name="leo_01e407">#01e407</color>
+    <color name="leo_9dfafe">#9dfafe</color>
+    <color name="leo_e45dfe">#e45dfe</color>
 </resources>

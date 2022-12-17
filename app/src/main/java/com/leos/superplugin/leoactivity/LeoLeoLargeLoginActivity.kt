@@ -1,12 +1,12 @@
-package com.leos.superplugin.activity
+package com.leos.superplugin.leoactivity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.leos.superplugin.R
 
-class LargeLoginActivity : AppCompatActivity() {
+class LeoLeoLargeLoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.leo_ta_activity_login)
     }
 }

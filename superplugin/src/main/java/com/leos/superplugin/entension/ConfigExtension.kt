@@ -21,6 +21,8 @@ open class ConfigExtension {
 
     var dirPrefixName: Array<String> = arrayOf("")
 
+    var dirPackage = ""
+
     var resPrefixName: Array<String> = arrayOf("")
 
     var changeResDir: Array<String>? = null
@@ -42,5 +44,13 @@ open class ConfigExtension {
     var layoutClassMethodCount = 0
 
     var drawableClassCount = 0
+
+    var colorCount = 0
+
+    var stringsCount = 0
+
+    var colorPrefixName: Array<String> = arrayOf("")
+
+    var stringsPrefixName: Array<String> = arrayOf("")
 
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<RelativeLayout android:id="@+id/fhthjxgbtcqfdkle" android:layout_width="115dp" android:layout_height="77dp"/>
+<FrameLayout android:id="@+id/vanhwamycpbmilis" android:layout_width="52dp" android:layout_height="49dp"/>
+<Button android:id="@+id/wwytfyiypueeqnfk" android:layout_width="63dp" android:layout_height="5dp"/>
+<SeekBar android:id="@+id/grcbdpwgbyqtihte" android:layout_width="70dp" android:layout_height="54dp"/>
+<TimePicker android:id="@+id/expjkcapdjmbokwh" android:layout_width="87dp" android:layout_height="50dp"/>
+<FrameLayout android:id="@+id/bnhvrjgzzgtmbvhq" android:layout_width="108dp" android:layout_height="33dp"/>
+<LinearLayout android:id="@+id/qzrzuvpkhjcipkwa" android:layout_width="124dp" android:layout_height="26dp"/>
+<SearchView android:id="@+id/agsatxbsomcykbos" android:layout_width="132dp" android:layout_height="33dp"/>
+<LinearLayout android:id="@+id/tojaltghxvrxhbqn" android:layout_width="82dp" android:layout_height="17dp"/>
+<SeekBar android:id="@+id/qgkgjghywtwzwruk" android:layout_width="82dp" android:layout_height="61dp"/>
+</LinearLayout>

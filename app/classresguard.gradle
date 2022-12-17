@@ -2,30 +2,44 @@ apply plugin: "class-res-guard"
 
 //以下均为非必须，根据自己需要配置即可
 classResGuard {
+    //renameClass Task
     //Class的前缀名称,固定前缀配单个,随机前缀配置需要随机的前缀数组["Large","SuperT"]
     classPrefixName = ["Leo"]
+    //renameDir Task
     //dir的前缀名称,配置同上
     dirPrefixName = ["leo"]
+    //配置修改dir的package,加上这个包名是为了更精确找到防止误改
+    dirPackage = "com.leos.superplugin"
+    //renameRes Task
     //res的前缀名称,配置同上
     resPrefixName = ["leo_ta"]
     //需要修改的res文件目录
     changeResDir = ["drawable", "layout", "mipmap-hdpi"]
+    //addJunkFile Task
     //生成java垃圾文件的目录,可以配置不存在的目录
-    junkPackage = "com.leos.superplugin"
+    junkPackage = "com.leos.superplugin.junk"
     //需要导入的R资源文件包,切记不要配错,否则垃圾文件中的R资源文件包需要自己手动导入
     junkResPackage = "com.leos.superplugin"
     //生成java Activity垃圾文件中的方法数
     activityClassMethodCount = 10
     //生成java Activity文件的数量
-    activityClassCount = 10
+    activityClassCount = 1
     //生成java 普通垃圾文件中的方法数
-    normalClassMethodCount = 10
+    normalClassMethodCount = 0
     //生成java 普通文件的数量
-    normalClassCount = 10
+    normalClassCount = 0
     //生成layout文件的数量
-    layoutClassCount = 10
+    layoutClassCount = 1
     //生成layout文件中view的数量
     layoutClassMethodCount = 10
     //生成drawable文件的数量
-    drawableClassCount = 10
+    drawableClassCount = 0
+    //添加color资源的数量 values/color.xml
+    colorCount = 10
+    //添加string资源的数量 values/strings.xml
+    stringsCount = 10
+    //color的前缀名称,colorCount>0时,必须配置
+    colorPrefixName = ["leo"]
+    //strings的前缀名称,可配可不配
+    stringsPrefixName = [""]
 }

@@ -37,8 +37,8 @@ fun findClassByManifest(text: String, classPaths: MutableList<String>, namespace
     val applicationNode = nodeList.firstOrNull() as? Node ?: return packageName
     val application = applicationNode.attribute("android:name")?.toString()
     if (application != null) {
-        val classPath = if (application.startsWith(".")) packageName + application else application
-        classPaths.add(classPath)
+//        val classPath = if (application.startsWith(".")) packageName + application else application
+        classPaths.add(application)
     }
     for (children in applicationNode.children()) {
         val childNode = children as? Node ?: continue
@@ -47,8 +47,8 @@ fun findClassByManifest(text: String, classPaths: MutableList<String>, namespace
             "receiver" == childName || "provider" == childName
         ) {
             val name = childNode.attribute("android:name").toString()
-            val classPath = if (name.startsWith(".")) packageName + name else name
-            classPaths.add(classPath)
+//            val classPath = if (name.startsWith(".")) packageName + name else name
+            classPaths.add(name)
         }
     }
     return packageName

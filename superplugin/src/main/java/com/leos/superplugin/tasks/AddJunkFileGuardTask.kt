@@ -94,6 +94,63 @@ open class AddJunkFileGuardTask @Inject constructor(
         for (i in 0 until configExtension.drawableClassCount) {
             generateDrawable(File(drawableDir, "${generateXmlName()}.xml"))
         }
+        generateValueRes()
+    }
+
+    private fun generateValueRes() {
+        val colorFile = project.resDir("values/color.xml")
+        for (i in 0 until configExtension.colorCount) {
+            val generateColor = generateColor()
+            val colorPrefixNameArray = configExtension.colorPrefixName
+            if (colorPrefixNameArray.isEmpty()) {
+                throw IllegalArgumentException("The colorPrefixName has not been configured yet. Please configure the colorPrefixName before running the task")
+            }
+            val colorPrefixName = if (colorPrefixNameArray.size == 1) {
+                colorPrefixNameArray[0]
+            } else {
+                colorPrefixNameArray[random.nextInt(colorPrefixNameArray.size)]
+            }
+            val colorName = colorPrefixName.lowercase() + "_" + generateColor.replace("#", "")
+            val color = "    <color name=\"${colorName}\">${generateColor}</color>"
+            val reader = BufferedReader(FileReader(colorFile))
+            val sb = StringBuilder()
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                if (line!!.contains("</resources>")) {
+                    sb.append(color + "\n")
+                }
+                sb.append(line + "\n")
+            }
+            colorFile.writeText(sb.toString())
+        }
+        val stringsFile = project.resDir("values/strings.xml")
+        for (i in 0 until configExtension.stringsCount) {
+            val generateText = generateText()
+            val stringsPrefixNameArray = configExtension.stringsPrefixName
+            val stringsPrefixName = if (stringsPrefixNameArray.isEmpty()) {
+                ""
+            } else if (stringsPrefixNameArray.size == 1) {
+                stringsPrefixNameArray[0]
+            } else {
+                stringsPrefixNameArray[random.nextInt(stringsPrefixNameArray.size)]
+            }
+            val stringsName = if (stringsPrefixName.isEmpty()) {
+                generateText
+            } else {
+                stringsPrefixName.lowercase() + "_" + generateText
+            }
+            val strings = "    <string name=\"${stringsName}\">${generateText}</string>"
+            val reader = BufferedReader(FileReader(stringsFile))
+            val sb = StringBuilder()
+            var line: String?
+            while (reader.readLine().also { line = it } != null) {
+                if (line!!.contains("</resources>")) {
+                    sb.append(strings + "\n")
+                }
+                sb.append(line + "\n")
+            }
+            stringsFile.writeText(sb.toString())
+        }
     }
 
     private fun generateDrawable(file: File) {
@@ -139,7 +196,7 @@ open class AddJunkFileGuardTask @Inject constructor(
                 .addAnnotation(Override::class.java).addModifiers(Modifier.PROTECTED)
                 .addParameter(bundleClassName, "savedInstanceState")
                 .addStatement("super.onCreate(savedInstanceState)")
-                .addStatement("setContentView(%s.layout.${xmlName})", rClassname).build()
+                .addStatement("setContentView(\$T.layout.${xmlName})", rClassname).build()
         )
         for (i in 0 until configExtension.activityClassMethodCount) {
             val methodName = generateText()
@@ -188,7 +245,7 @@ open class AddJunkFileGuardTask @Inject constructor(
                 methodBuilder.addCode("String ${getStringText()} = \"${s2Value}\";\n")
                 val s3Desc = getStringText()
                 methodBuilder.addCode("String $s3Desc = \"${s1Value + s2Value}\";\n")
-                methodBuilder.addCode("System.out.println(\"${s3Desc}\");\n")
+                methodBuilder.addCode("System.out.println(${s3Desc});\n")
             }
             1 -> {
                 val i = random.nextInt(100)
@@ -208,7 +265,7 @@ open class AddJunkFileGuardTask @Inject constructor(
                     methodBuilder.addCode("int ${getIntText()} = $s2Value; \n")
                     val s3Desc = getStringText()
                     methodBuilder.addCode("int $s3Desc = ${s1Value + s2Value}; \n")
-                    methodBuilder.addCode("System.out.println(\"${s3Desc}\");\n")
+                    methodBuilder.addCode("System.out.println(${s3Desc});\n")
                 }
             }
         }
