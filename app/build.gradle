@@ -1,39 +1,9 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
-    id 'android-junk-code'
 }
 
-//apply from: 'aabresguard.gradle'
-
-apply from: 'xmlclassguard.gradle'
-
-androidJunkCode {
-    variantConfig {
-        release {//变体名称，如果没有设置productFlavors就是buildType名称，如果有设置productFlavors就是flavor+buildType，例如（freeRelease、proRelease）
-            packageBase = "cn.leos.superplugin"  //生成java类根包名
-            packageCount = 30 //生成包数量
-            activityCountPerPackage = 3 //每个包下生成Activity类数量
-            excludeActivityJavaFile = false //是否排除生成Activity的Java文件,默认false(layout和写入AndroidManifest.xml还会执行)，主要用于处理类似神策全埋点编译过慢问题
-            otherCountPerPackage = 50  //每个包下生成其它类的数量
-            methodCountPerClass = 20  //每个类下生成方法数量
-            resPrefix = "large_"  //生成的layout、drawable、string等资源名前缀
-            drawableCount = 300  //生成drawable资源数量
-            stringCount = 300  //生成string数量
-        }
-        debug {//变体名称，如果没有设置productFlavors就是buildType名称，如果有设置productFlavors就是flavor+buildType，例如（freeRelease、proRelease）
-            packageBase = "cn.leos.superplugin"  //生成java类根包名
-            packageCount = 30 //生成包数量
-            activityCountPerPackage = 3 //每个包下生成Activity类数量
-            excludeActivityJavaFile = false //是否排除生成Activity的Java文件,默认false(layout和写入AndroidManifest.xml还会执行)，主要用于处理类似神策全埋点编译过慢问题
-            otherCountPerPackage = 50  //每个包下生成其它类的数量
-            methodCountPerClass = 20  //每个类下生成方法数量
-            resPrefix = "large_"  //生成的layout、drawable、string等资源名前缀
-            drawableCount = 300  //生成drawable资源数量
-            stringCount = 300  //生成string数量
-        }
-    }
-}
+apply from: 'classresguard.gradle'
 
 android {
     namespace 'com.leos.superplugin'

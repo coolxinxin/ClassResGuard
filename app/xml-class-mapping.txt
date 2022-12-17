@@ -1,7 +1,0 @@
-dir mapping:
-	com.leos.superplugin -> i
-	com.leos.superplugin.activity -> i
-	com.leos.superplugin.app -> i
-	com.leos.superplugin.util -> i
-
-class mapping:

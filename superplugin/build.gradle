@@ -9,7 +9,7 @@ publishing {
         release(MavenPublication) {
             from components.java
             groupId 'com.leos.superplugin'
-            artifactId 'XmlClassGuard'
+            artifactId 'ClassResGuard'
             version "1.0.0"
         }
     }

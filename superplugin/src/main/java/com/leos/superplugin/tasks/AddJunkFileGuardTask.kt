@@ -1,7 +1,6 @@
 package com.leos.superplugin.tasks
 
-import com.leos.superplugin.entensions.GuardExtension
-import com.leos.superplugin.utils.*
+import com.leos.superplugin.entension.*
 import com.squareup.javapoet.ClassName
 import com.squareup.javapoet.JavaFile
 import com.squareup.javapoet.MethodSpec
@@ -15,15 +14,14 @@ import java.io.FileReader
 import java.util.*
 import javax.inject.Inject
 import javax.lang.model.element.Modifier
-import kotlin.collections.ArrayList
 
 /**
  * @author: Leo
  * @time: 2022/11/18
  * @desc:
  */
-open class GarbageGuardTask @Inject constructor(
-    private val guardExtension: GuardExtension,
+open class AddJunkFileGuardTask @Inject constructor(
+    private val configExtension: ConfigExtension,
 ) : DefaultTask() {
 
     init {
@@ -35,7 +33,8 @@ open class GarbageGuardTask @Inject constructor(
         private val abcAndABC = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()
         private val ABC = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".toCharArray()
         private val color = "0123456789abcdef".toCharArray()
-        private val viewArray = arrayOf("TextView",
+        private val viewArray = arrayOf(
+            "TextView",
             "RadioButton",
             "TimePicker",
             "SearchView",
@@ -48,7 +47,8 @@ open class GarbageGuardTask @Inject constructor(
             "LinearLayout",
             "RelativeLayout",
             "ProgressBar",
-            "Spinner")
+            "Spinner"
+        )
     }
 
     private val random by lazy { Random() }
@@ -56,8 +56,7 @@ open class GarbageGuardTask @Inject constructor(
 
     @TaskAction
     fun execute() {
-        val androidProjects = allDependencyAndroidProjects()
-        androidProjects.forEach { handleResClass(it) }
+        handleResClass(project)
     }
 
     private fun handleResClass(project: Project) {
@@ -65,30 +64,34 @@ open class GarbageGuardTask @Inject constructor(
         val javaDir = project.javaDir()
         val drawableDir = project.resDir("drawable")
         val xmlNameArray = ArrayList<String>()
-        for (i in 0 until guardExtension.layoutClassCount) {
+        for (i in 0 until configExtension.layoutClassCount) {
             val xmlName = generateXmlName()
             xmlNameArray.add(xmlName)
             val layoutFile = File(layoutDir, "${xmlName}.xml")
             layoutFile.writeText(generateLayoutText())
         }
         val count = xmlNameArray.size
-        for (i in 0 until guardExtension.activityClassCount) {
+        for (i in 0 until configExtension.activityClassCount) {
             var j = i
             if (i >= count) {
                 j = count - 1
             }
-            generateActivityClass(guardExtension.packageName,
+            generateActivityClass(
+                configExtension.junkPackage,
                 generateActivityName(),
                 xmlNameArray[j],
                 javaDir,
-                project.manifestFile())
+                project.manifestFile()
+            )
         }
-        for (i in 0 until guardExtension.normalClassCount) {
-            generateNormalClass(guardExtension.packageName,
+        for (i in 0 until configExtension.normalClassCount) {
+            generateNormalClass(
+                configExtension.junkPackage,
                 generateActivityName(),
-                javaDir)
+                javaDir
+            )
         }
-        for (i in 0 until guardExtension.drawableClassCount) {
+        for (i in 0 until configExtension.drawableClassCount) {
             generateDrawable(File(drawableDir, "${generateXmlName()}.xml"))
         }
     }
@@ -112,7 +115,7 @@ open class GarbageGuardTask @Inject constructor(
     private fun generateNormalClass(pkgName: String, className: String, file: File) {
         val typeBuilder = TypeSpec.classBuilder(className)
         typeBuilder.addModifiers(Modifier.PUBLIC)
-        for (i in 0 until guardExtension.normalClassMethodCount) {
+        for (i in 0 until configExtension.normalClassMethodCount) {
             val methodName = generateText()
             val methodBuilder = MethodSpec.methodBuilder(methodName)
             generateMethods(methodBuilder)
@@ -130,16 +133,19 @@ open class GarbageGuardTask @Inject constructor(
         typeBuilder.superclass(ClassName.get("android.app", "Activity"))
         typeBuilder.addModifiers(Modifier.PUBLIC)
         val bundleClassName = ClassName.get("android.os", "Bundle")
-        typeBuilder.addMethod(MethodSpec.methodBuilder("onCreate")
-            .addAnnotation(Override::class.java).addModifiers(Modifier.PROTECTED)
-            .addParameter(bundleClassName, "savedInstanceState")
-            .addStatement("super.onCreate(savedInstanceState)")
-            .addStatement("setContentView(R.layout.${xmlName})").build())
-        for (i in 0 until guardExtension.activityClassMethodCount) {
+        val rClassname = ClassName.get(configExtension.junkResPackage, "R")
+        typeBuilder.addMethod(
+            MethodSpec.methodBuilder("onCreate")
+                .addAnnotation(Override::class.java).addModifiers(Modifier.PROTECTED)
+                .addParameter(bundleClassName, "savedInstanceState")
+                .addStatement("super.onCreate(savedInstanceState)")
+                .addStatement("setContentView(%s.layout.${xmlName})", rClassname).build()
+        )
+        for (i in 0 until configExtension.activityClassMethodCount) {
             val methodName = generateText()
             val methodBuilder = MethodSpec.methodBuilder(methodName)
             generateMethods(methodBuilder)
-            typeBuilder.addMethod(methodBuilder.addModifiers(Modifier.PRIVATE).build())
+            typeBuilder.addMethod(methodBuilder.addModifiers(Modifier.PUBLIC).build())
         }
         val fileBuilder = JavaFile.builder(pkgName, typeBuilder.build())
         fileBuilder.build().writeTo(file)
@@ -154,10 +160,14 @@ open class GarbageGuardTask @Inject constructor(
         var line: String?
         while (reader.readLine().also { line = it } != null) {
             if (line!!.contains("</application>")) {
-                sb.append(String.format(activity,
-                    pkgName,
-                    className,
-                    generateActivityLaunchMode()) + "\n")
+                sb.append(
+                    String.format(
+                        activity,
+                        pkgName,
+                        className,
+                        generateActivityLaunchMode()
+                    ) + "\n"
+                )
             }
             sb.append(line + "\n")
         }
@@ -172,16 +182,33 @@ open class GarbageGuardTask @Inject constructor(
     private fun generateMethods(methodBuilder: MethodSpec.Builder) {
         when (random.nextInt(2)) {
             0 -> {
-                for (i in 0..3) {
-                    methodBuilder.addCode("String ${getStringText()} = \"${generateText()}\";\n")
-                }
+                val s1Value = generateText()
+                val s2Value = generateText()
+                methodBuilder.addCode("String ${getStringText()} = \"$s1Value\";\n")
+                methodBuilder.addCode("String ${getStringText()} = \"${s2Value}\";\n")
+                val s3Desc = getStringText()
+                methodBuilder.addCode("String $s3Desc = \"${s1Value + s2Value}\";\n")
+                methodBuilder.addCode("System.out.println(\"${s3Desc}\");\n")
             }
             1 -> {
-                methodBuilder.addCode("System.out.println(\"${generateText()}\");\n")
+                val i = random.nextInt(100)
+                methodBuilder.addCode(
+                    "int count = 0;\n"
+                            + "for (int i = 0; i < $i; i++) {\n"
+                            + "  count += i;\n"
+                            + "}\n"
+                )
+                methodBuilder.addCode("System.out.println(count);\n")
             }
             else -> {
                 for (i in 0..2) {
-                    methodBuilder.addCode("int ${getIntText()} = ${random.nextInt(100)}; \n")
+                    val s1Value = random.nextInt(100)
+                    val s2Value = random.nextInt(100)
+                    methodBuilder.addCode("int ${getIntText()} = $s1Value; \n")
+                    methodBuilder.addCode("int ${getIntText()} = $s2Value; \n")
+                    val s3Desc = getStringText()
+                    methodBuilder.addCode("int $s3Desc = ${s1Value + s2Value}; \n")
+                    methodBuilder.addCode("System.out.println(\"${s3Desc}\");\n")
                 }
             }
         }
@@ -206,7 +233,7 @@ open class GarbageGuardTask @Inject constructor(
     private fun generateLayoutText(): String {
         val sb = StringBuilder()
         sb.append("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<LinearLayout xmlns:android=\"http://schemas.android.com/apk/res/android\"\n    android:layout_width=\"match_parent\"\n    android:layout_height=\"match_parent\"\n    android:orientation=\"vertical\">\n")
-        for (i in 0 until guardExtension.layoutClassMethodCount) {
+        for (i in 0 until configExtension.layoutClassMethodCount) {
             sb.append(generateLayoutChildView()).append("\n")
         }
         sb.append("</LinearLayout>")

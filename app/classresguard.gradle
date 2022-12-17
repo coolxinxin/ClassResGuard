@@ -1,0 +1,31 @@
+apply plugin: "class-res-guard"
+
+//以下均为非必须，根据自己需要配置即可
+classResGuard {
+    //Class的前缀名称,固定前缀配单个,随机前缀配置需要随机的前缀数组["Large","SuperT"]
+    classPrefixName = ["Leo"]
+    //dir的前缀名称,配置同上
+    dirPrefixName = ["leo"]
+    //res的前缀名称,配置同上
+    resPrefixName = ["leo_ta"]
+    //需要修改的res文件目录
+    changeResDir = ["drawable", "layout", "mipmap-hdpi"]
+    //生成java垃圾文件的目录,可以配置不存在的目录
+    junkPackage = "com.leos.superplugin"
+    //需要导入的R资源文件包,切记不要配错,否则垃圾文件中的R资源文件包需要自己手动导入
+    junkResPackage = "com.leos.superplugin"
+    //生成java Activity垃圾文件中的方法数
+    activityClassMethodCount = 10
+    //生成java Activity文件的数量
+    activityClassCount = 10
+    //生成java 普通垃圾文件中的方法数
+    normalClassMethodCount = 10
+    //生成java 普通文件的数量
+    normalClassCount = 10
+    //生成layout文件的数量
+    layoutClassCount = 10
+    //生成layout文件中view的数量
+    layoutClassMethodCount = 10
+    //生成drawable文件的数量
+    drawableClassCount = 10
+}
