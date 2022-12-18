@@ -29,7 +29,7 @@ pluginManagement {
 ```
 buildscript {
     dependencies {
-        classpath "com.github.coolxinxin:ClassResGuard:1.0.1"
+        classpath "com.github.coolxinxin:ClassResGuard:1.0.2"
     }
 }
 ```
