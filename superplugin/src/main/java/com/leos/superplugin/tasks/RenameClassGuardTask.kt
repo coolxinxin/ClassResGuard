@@ -88,7 +88,7 @@ open class RenameClassGuardTask @Inject constructor(
             when {
                 parentName.startsWith("navigation")
                         || parentName.startsWith("layout") -> {
-                    xmlFile.writeText(xmlFile.readText().replace(oldClassPath, newClassPath))
+                    xmlFile.writeText(xmlFile.readText().replaceWords(oldClassPath, newClassPath))
                 }
                 xmlFile.name == "AndroidManifest.xml" -> {
                     val xmlContent = mutableListOf<String>()
@@ -101,9 +101,7 @@ open class RenameClassGuardTask @Inject constructor(
                     for (classPath in xmlContent) {
                         val className = classPath.getClassName()
                         if (className == oldName) {
-                            println("classPath:$classPath")
-                            println("newClassPath:$newClassPath")
-                            text = text.replace(classPath, newClassPath)
+                            text = text.replaceWords(classPath, newClassPath)
                         }
                     }
                     xmlFile.writeText(text)
@@ -132,9 +130,9 @@ open class RenameClassGuardTask @Inject constructor(
         val sb = StringBuilder()
         file.readLines().forEach {
             if (it.startsWith("import")) {
-                sb.append(it.replace(oldClassPath, newClassPath)).append("\n")
+                sb.append(it.replaceWords(oldClassPath, newClassPath)).append("\n")
             } else {
-                sb.append(it.replace(oldName, newName)).append("\n")
+                sb.append(it.replaceWords(oldName, newName)).append("\n")
             }
         }
         file.writeText(sb.toString())

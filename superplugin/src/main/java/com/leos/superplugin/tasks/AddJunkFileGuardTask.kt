@@ -98,7 +98,10 @@ open class AddJunkFileGuardTask @Inject constructor(
     }
 
     private fun generateValueRes() {
-        val colorFile = project.resDir("values/color.xml")
+        var colorFile = project.resDir("values/colors.xml")
+        if (!colorFile.exists()){
+            colorFile =  project.resDir("values/color.xml")
+        }
         for (i in 0 until configExtension.colorCount) {
             val generateColor = generateColor()
             val colorPrefixNameArray = configExtension.colorPrefixName
@@ -123,7 +126,10 @@ open class AddJunkFileGuardTask @Inject constructor(
             }
             colorFile.writeText(sb.toString())
         }
-        val stringsFile = project.resDir("values/strings.xml")
+        var stringsFile = project.resDir("values/strings.xml")
+        if (!stringsFile.exists()){
+            stringsFile =  project.resDir("values/string.xml")
+        }
         for (i in 0 until configExtension.stringsCount) {
             val generateText = generateText()
             val stringsPrefixNameArray = configExtension.stringsPrefixName
@@ -237,7 +243,7 @@ open class AddJunkFileGuardTask @Inject constructor(
     }
 
     private fun generateMethods(methodBuilder: MethodSpec.Builder) {
-        when (random.nextInt(2)) {
+        when (random.nextInt(3)) {
             0 -> {
                 val s1Value = generateText()
                 val s2Value = generateText()
@@ -249,13 +255,14 @@ open class AddJunkFileGuardTask @Inject constructor(
             }
             1 -> {
                 val i = random.nextInt(100)
+                val desc = getStringText()
                 methodBuilder.addCode(
-                    "int count = 0;\n"
+                    "int $desc = 0;\n"
                             + "for (int i = 0; i < $i; i++) {\n"
-                            + "  count += i;\n"
+                            + "  $desc += i;\n"
                             + "}\n"
                 )
-                methodBuilder.addCode("System.out.println(count);\n")
+                methodBuilder.addCode("System.out.println($desc);\n")
             }
             else -> {
                 for (i in 0..2) {
@@ -263,7 +270,7 @@ open class AddJunkFileGuardTask @Inject constructor(
                     val s2Value = random.nextInt(100)
                     methodBuilder.addCode("int ${getIntText()} = $s1Value; \n")
                     methodBuilder.addCode("int ${getIntText()} = $s2Value; \n")
-                    val s3Desc = getStringText()
+                    val s3Desc = getIntText()
                     methodBuilder.addCode("int $s3Desc = ${s1Value + s2Value}; \n")
                     methodBuilder.addCode("System.out.println(${s3Desc});\n")
                 }

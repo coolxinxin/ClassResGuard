@@ -2,6 +2,7 @@ package com.leos.superplugin.tasks
 
 import com.leos.superplugin.entension.ConfigExtension
 import com.leos.superplugin.entension.javaDir
+import com.leos.superplugin.entension.replaceWords
 import com.leos.superplugin.entension.resDir
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
@@ -88,7 +89,7 @@ open class RenameResGuardTask @Inject constructor(
             if (it.contains("R.layout") || it.contains("R.mipmap")
                 || it.contains("R.drawable") || it.startsWith("navigation")
             ) {
-                sb.append(it.replace(oldName, newName)).append("\n")
+                sb.append(it.replaceWords(oldName, newName)).append("\n")
             } else {
                 sb.append(it).append("\n")
             }
@@ -98,7 +99,7 @@ open class RenameResGuardTask @Inject constructor(
 
     private fun replaceXmlText(oldName: String, newName: String, file: File) {
         val originalText = file.readText()
-        val newText = originalText.replace(oldName, newName)
+        val newText = originalText.replaceWords(oldName, newName)
         file.writeText(newText)
     }
 }

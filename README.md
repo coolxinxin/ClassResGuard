@@ -29,7 +29,7 @@ pluginManagement {
 ```
 buildscript {
     dependencies {
-        classpath "com.github.coolxinxin:ClassResGuard:1.0.2"
+        classpath "com.github.coolxinxin:ClassResGuard:1.0.3"
     }
 }
 ```
@@ -85,6 +85,8 @@ classResGuard {
 ```
 
 如图看到一下任务
+
+
 ![image](img/1.png)
 
 ## 任务介绍

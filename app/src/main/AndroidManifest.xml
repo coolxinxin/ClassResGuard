@@ -4,7 +4,7 @@
     package="com.leos.superplugin">
 
     <application
-        android:name="com.leos.superplugin.leoapp.LeoLeoLargeMyApplication"
+        android:name="com.leos.superplugin.leoapp.LeoLeoLeoLargeMyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -13,10 +13,10 @@
         android:theme="@style/Theme.SuperPlugin"
         tools:targetApi="31">
         <activity
-            android:name="com.leos.superplugin.leoactivity.LeoLeoLargeLoginActivity"
+            android:name="com.leos.superplugin.leoactivity.LeoLeoLeoLargeLoginActivity"
             android:exported="false" />
         <activity
-            android:name="com.leos.superplugin.leoactivity.LeoLeoLargeMainActivity"
+            android:name="com.leos.superplugin.leoactivity.LeoLeoLeoLargeMainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +27,12 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+        </activity>
+
+        <activity android:name="com.leos.superplugin.junk.LeoNLoonJwWBKGmtLlvZYgURstRZl" 
+            android:exported="false" 
+            android:launchMode="singleTask" 
+            android:screenOrientation="portrait">
         </activity>
 
     </application>
