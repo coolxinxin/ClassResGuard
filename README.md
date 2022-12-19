@@ -8,7 +8,7 @@
 一键添加垃圾类(普通java class,Activity class,layout,drawable,并且Activity会
 自动在AndroidManifest.xml里注册,还会绑定生成的垃圾xml), 下面会有详细介绍.
 
-如果觉得此库不能满足你的需求可以看看[ClassResGuard](https://github.com/coolxinxin/ClassResGuard)
+如果觉得此库不能满足你的需求可以看看[XmlClassGuard](https://github.com/liujingxing/XmlClassGuard)
 
 ## 警告警告⚠️
 
