@@ -34,7 +34,7 @@ class ClassResGuardPlugin : Plugin<Project> {
         )
         project.tasks.create("addJunkFile", AddJunkFileGuardTask::class.java, configExtension)
         project.tasks.create("renameClass", RenameClassGuardTask::class.java, configExtension)
-        project.tasks.create("renameDir", RenameDirGuardTask::class.java, configExtension)
+//        project.tasks.create("renameDir", RenameDirGuardTask::class.java, configExtension)
     }
 
 

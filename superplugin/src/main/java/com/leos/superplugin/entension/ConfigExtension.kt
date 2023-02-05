@@ -21,8 +21,6 @@ open class ConfigExtension {
 
     var dirPrefixName: Array<String> = arrayOf("")
 
-    var dirPackage = ""
-
     var resPrefixName: Array<String> = arrayOf("")
 
     var changeResDir: Array<String>? = null

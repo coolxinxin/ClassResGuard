@@ -107,9 +107,7 @@ open class RenameDirGuardTask @Inject constructor(
         file.readLines().forEach {
             if (it.startsWith("package")) {
                 sb.append(it.replace(oldClassPath, newClassPath)).append("\n")
-            } else if (it.startsWith("import")
-                && it.contains(configExtension.dirPackage)
-            ) {
+            } else if (it.startsWith("import")) {
                 sb.append(it.replaceFirst(oldClassPath, newClassPath)).append("\n")
             } else {
                 sb.append(it).append("\n")

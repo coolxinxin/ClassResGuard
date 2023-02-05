@@ -31,7 +31,7 @@ pluginManagement {
 ```
 buildscript {
     dependencies {
-        classpath "com.github.coolxinxin:ClassResGuard:1.0.3"
+        classpath "com.github.coolxinxin:ClassResGuard:1.0.4"
     }
 }
 ```
@@ -49,8 +49,6 @@ classResGuard {
     //renameDir Task
     //dir的前缀名称,配置同上
     dirPrefixName = ["leo"]
-    //配置修改dir的package,加上这个包名是为了更精确找到防止误改
-    dirPackage = "com.leos.superplugin"
     //renameRes Task
     //res的前缀名称,配置同上
     resPrefixName = ["leo_ta"]
@@ -86,7 +84,7 @@ classResGuard {
 }
 ```
 
-如图看到一下任务
+如图看到以下任务
 
 
 ![image](img/1.png)
