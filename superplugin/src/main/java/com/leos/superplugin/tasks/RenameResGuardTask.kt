@@ -86,10 +86,14 @@ open class RenameResGuardTask @Inject constructor(
     private fun replaceClassText(file: File, oldName: String, newName: String) {
         val sb = StringBuilder()
         file.readLines().forEach {
-            if (it.contains("R.layout") || it.contains("R.mipmap")
-                || it.contains("R.drawable") || it.startsWith("navigation")
-            ) {
-                sb.append(it.replaceWords(oldName, newName)).append("\n")
+            if (it.contains("R.layout")) {
+                sb.append(it.replaceWords("R.layout.$oldName", "R.layout.$newName")).append("\n")
+            } else if (it.contains("R.mipmap")) {
+                sb.append(it.replaceWords("R.mipmap.$oldName", "R.mipmap.$newName")).append("\n")
+            } else if (it.contains("R.drawable")) {
+                sb.append(it.replaceWords("R.drawable.$oldName", "R.drawable.$newName")).append("\n")
+            } else if (it.contains("R.navigation")) {
+                sb.append(it.replaceWords("R.navigation.$oldName", "R.navigation.$newName")).append("\n")
             } else {
                 sb.append(it).append("\n")
             }

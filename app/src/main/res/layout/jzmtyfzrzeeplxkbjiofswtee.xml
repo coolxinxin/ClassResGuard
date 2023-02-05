@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<TimePicker android:id="@+id/zbxsxbftmeehivja" android:layout_width="16dp" android:layout_height="56dp"/>
+<RadioButton android:id="@+id/tbmxfolvuoakeqlv" android:layout_width="125dp" android:layout_height="10dp"/>
+<SeekBar android:id="@+id/lkbuuguiuiokytms" android:layout_width="42dp" android:layout_height="36dp"/>
+<TimePicker android:id="@+id/xlirzfumkyawerbr" android:layout_width="124dp" android:layout_height="62dp"/>
+<Spinner android:id="@+id/hcnaiynejslyyhat" android:layout_width="91dp" android:layout_height="10dp"/>
+<SurfaceView android:id="@+id/svbjcjiehaftrjsj" android:layout_width="29dp" android:layout_height="18dp"/>
+<TimePicker android:id="@+id/seymldcbqjtkdfif" android:layout_width="74dp" android:layout_height="55dp"/>
+<TextView android:id="@+id/euelovoqbajyohon" android:layout_width="145dp" android:layout_height="17dp"/>
+<SeekBar android:id="@+id/jgxwzhlaqpwkyaol" android:layout_width="106dp" android:layout_height="6dp"/>
+<TextView android:id="@+id/igrsollrdzmcehpf" android:layout_width="44dp" android:layout_height="28dp"/>
+</LinearLayout>

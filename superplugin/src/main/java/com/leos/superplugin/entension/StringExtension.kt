@@ -36,7 +36,6 @@ fun String.getDirPath(): String {
     return if (index == -1) this else substring(0, index)
 }
 
-// author(https://github.com/liujingxing/XmlClassGuard)
 fun String.replaceWords(
     oldValue: String,
     newValue: String,

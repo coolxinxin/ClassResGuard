@@ -3,6 +3,7 @@ package com.leos.superplugin
 import com.leos.superplugin.entension.ConfigExtension
 import com.leos.superplugin.tasks.AddJunkFileGuardTask
 import com.leos.superplugin.tasks.RenameClassGuardTask
+import com.leos.superplugin.tasks.RenameDirGuardTask
 import com.leos.superplugin.tasks.RenameResGuardTask
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
@@ -33,7 +34,7 @@ class ClassResGuardPlugin : Plugin<Project> {
         )
         project.tasks.create("addJunkFile", AddJunkFileGuardTask::class.java, configExtension)
         project.tasks.create("renameClass", RenameClassGuardTask::class.java, configExtension)
-//        project.tasks.create("renameDir", RenameDirGuardTask::class.java, configExtension)
+        project.tasks.create("renameDir", RenameDirGuardTask::class.java, configExtension)
     }
 
 
