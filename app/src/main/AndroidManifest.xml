@@ -29,12 +29,6 @@
                 android:value="" />
         </activity>
 
-        <activity android:name="com.leos.superplugin.junk.ArXrbjgNZYuFmWBStsYKTYzwit" 
-            android:exported="false" 
-            android:launchMode="singleTask" 
-            android:screenOrientation="portrait">
-        </activity>
-
     </application>
 
 </manifest>
