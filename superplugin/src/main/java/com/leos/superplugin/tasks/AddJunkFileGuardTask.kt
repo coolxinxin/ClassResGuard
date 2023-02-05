@@ -49,6 +49,14 @@ open class AddJunkFileGuardTask @Inject constructor(
             "ProgressBar",
             "Spinner"
         )
+        private val whiteText = arrayListOf(
+            "byte", "char", "boolean", "short", "int", "float", "long", "double",
+            "val", "var", "for", "if", "companion", "class", "abstract", "default",
+            "enum", "import", "package", "static", "void", "continue", "if", "else",
+            "native", "public", "protected", "private", "instanceof", "final", "interface",
+            "implements", "finally", "super", "strictfp", "return", "switch", "synchronized",
+            "goto", "transient", "volatile", "throws", "while", "extends", "brake", "assert"
+        )
     }
 
     private val random by lazy { Random() }
@@ -99,8 +107,8 @@ open class AddJunkFileGuardTask @Inject constructor(
 
     private fun generateValueRes() {
         var colorFile = project.resDir("values/colors.xml")
-        if (!colorFile.exists()){
-            colorFile =  project.resDir("values/color.xml")
+        if (!colorFile.exists()) {
+            colorFile = project.resDir("values/color.xml")
         }
         for (i in 0 until configExtension.colorCount) {
             val generateColor = generateColor()
@@ -127,8 +135,8 @@ open class AddJunkFileGuardTask @Inject constructor(
             colorFile.writeText(sb.toString())
         }
         var stringsFile = project.resDir("values/strings.xml")
-        if (!stringsFile.exists()){
-            stringsFile =  project.resDir("values/string.xml")
+        if (!stringsFile.exists()) {
+            stringsFile = project.resDir("values/string.xml")
         }
         for (i in 0 until configExtension.stringsCount) {
             val generateText = generateText()
@@ -247,15 +255,17 @@ open class AddJunkFileGuardTask @Inject constructor(
             0 -> {
                 val s1Value = generateText()
                 val s2Value = generateText()
-                methodBuilder.addCode("String ${getStringText()} = \"$s1Value\";\n")
-                methodBuilder.addCode("String ${getStringText()} = \"${s2Value}\";\n")
-                val s3Desc = getStringText()
-                methodBuilder.addCode("String $s3Desc = \"${s1Value + s2Value}\";\n")
+                val s1Text = getStringText(getStringText1())
+                methodBuilder.addCode("String $s1Text = \"$s1Value\";\n")
+                val s2Text = getStringText(getStringText1())
+                methodBuilder.addCode("String $s2Text = \"${s2Value}\";\n")
+                val s3Desc = getStringText(getStringText1())
+                methodBuilder.addCode("String $s3Desc = $s1Text + $s2Text;\n")
                 methodBuilder.addCode("System.out.println(${s3Desc});\n")
             }
             1 -> {
                 val i = random.nextInt(100)
-                val desc = getStringText()
+                val desc = getStringText(getStringText1())
                 methodBuilder.addCode(
                     "int $desc = 0;\n"
                             + "for (int i = 0; i < $i; i++) {\n"
@@ -265,30 +275,48 @@ open class AddJunkFileGuardTask @Inject constructor(
                 methodBuilder.addCode("System.out.println($desc);\n")
             }
             else -> {
-                for (i in 0..2) {
-                    val s1Value = random.nextInt(100)
-                    val s2Value = random.nextInt(100)
-                    methodBuilder.addCode("int ${getIntText()} = $s1Value; \n")
-                    methodBuilder.addCode("int ${getIntText()} = $s2Value; \n")
-                    val s3Desc = getIntText()
-                    methodBuilder.addCode("int $s3Desc = ${s1Value + s2Value}; \n")
-                    methodBuilder.addCode("System.out.println(${s3Desc});\n")
-                }
+                val s1Value = random.nextInt(100)
+                val s2Value = random.nextInt(100)
+                val s1Text = getIntText(getIntText1())
+                val s2Text = getIntText(getIntText1())
+                methodBuilder.addCode("int $s1Text = $s1Value; \n")
+                methodBuilder.addCode("int $s2Text = $s2Value; \n")
+                val s3Desc = getIntText(getIntText1())
+                methodBuilder.addCode("int $s3Desc = $s1Text + $s2Text; \n")
+                methodBuilder.addCode("System.out.println(${s3Desc});\n")
             }
         }
     }
 
-    private fun getStringText(): String {
+    private fun getStringText(text: String): String {
+        val name = if (whiteText.contains(name)) {
+            getStringText(getStringText1())
+        } else {
+            text
+        }
+        return name
+    }
+
+    private fun getStringText1(): String {
         val name = StringBuilder()
-        for (i in 0..5) {
+        for (i in 0..10) {
             name.append(abc[random.nextInt(abc.size)])
         }
         return name.toString()
     }
 
-    private fun getIntText(): String {
+    private fun getIntText(text: String): String {
+        val name = if (whiteText.contains(name)) {
+            getIntText(getIntText1())
+        } else {
+            text
+        }
+        return name
+    }
+
+    private fun getIntText1(): String {
         val name = StringBuilder()
-        for (i in 0..2) {
+        for (i in 0..8) {
             name.append(abc[random.nextInt(abc.size)])
         }
         return name.toString()
