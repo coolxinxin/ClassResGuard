@@ -67,23 +67,41 @@ open class RenameResGuardTask @Inject constructor(
                     project.files(resFileList).asFileTree.forEach { xmlFile ->
                         replaceXmlText(oldName, newName, xmlFile)
                     }
-                    obfuscateAllClass(project.javaDir(), oldName, newName)
+                    obfuscateAllClass(project.javaDir(), oldName, newName, path)
                 }
             }
         }
     }
 
-    private fun obfuscateAllClass(file: File, oldName: String, newName: String) {
+    private fun generateBinding(name: String): String {
+        var newName = ""
+        val nameSplit = name.split("_")
+        var change: String
+        for (i in nameSplit.indices) {
+            val smallName = nameSplit[i]
+            val first = smallName.substring(0, 1).uppercase()
+            change = first + smallName.substring(1)
+            newName += change
+        }
+        return newName + "Binding"
+    }
+
+    private fun obfuscateAllClass(file: File, oldName: String, newName: String, path: String) {
         file.listFiles()?.forEach {
             if (it.isDirectory) {
-                obfuscateAllClass(it, oldName, newName)
+                obfuscateAllClass(it, oldName, newName, path)
             } else {
-                replaceClassText(it, oldName, newName)
+                replaceClassText(it, oldName, newName, path.startsWith("layout"))
             }
         }
     }
 
-    private fun replaceClassText(file: File, oldName: String, newName: String) {
+    private fun replaceClassText(
+        file: File,
+        oldName: String,
+        newName: String,
+        isNeedChangeBinding: Boolean
+    ) {
         val sb = StringBuilder()
         file.readLines().forEach {
             if (it.contains("R.layout")) {
@@ -91,14 +109,22 @@ open class RenameResGuardTask @Inject constructor(
             } else if (it.contains("R.mipmap")) {
                 sb.append(it.replaceWords("R.mipmap.$oldName", "R.mipmap.$newName")).append("\n")
             } else if (it.contains("R.drawable")) {
-                sb.append(it.replaceWords("R.drawable.$oldName", "R.drawable.$newName")).append("\n")
+                sb.append(it.replaceWords("R.drawable.$oldName", "R.drawable.$newName"))
+                    .append("\n")
             } else if (it.contains("R.navigation")) {
-                sb.append(it.replaceWords("R.navigation.$oldName", "R.navigation.$newName")).append("\n")
+                sb.append(it.replaceWords("R.navigation.$oldName", "R.navigation.$newName"))
+                    .append("\n")
             } else {
                 sb.append(it).append("\n")
             }
         }
-        file.writeText(sb.toString())
+        if (isNeedChangeBinding) {
+            val oldBinding = generateBinding(oldName)
+            val newBinding = generateBinding(newName)
+            file.writeText(sb.toString().replace(oldBinding, newBinding))
+        } else {
+            file.writeText(sb.toString())
+        }
     }
 
     private fun replaceXmlText(oldName: String, newName: String, file: File) {

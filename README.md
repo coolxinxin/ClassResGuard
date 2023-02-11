@@ -4,7 +4,7 @@
 
 每次改马甲包都需要自己手动修改太多文件名称,所以我写了ClassResGuard,一键修改className,dirName,resName(
 修改dirName还有bug,去除了这个任务,后续有时间会把这个任务加上)
-下面会有详细介绍,修改完所有引用的地方都会一键替换成最新修改的,注(在class文件中使用了dataBinding或viewBinding的是不会同步改到的,需要自己手动去修改)
+下面会有详细介绍,修改完所有引用的地方都会一键替换成最新修改的,修改layout名称的同时可以修改class中相对应的binding名称
 一键添加垃圾类(普通java class,Activity class,layout,drawable,并且Activity会
 自动在AndroidManifest.xml里注册,还会绑定生成的垃圾xml), 下面会有详细介绍.
 
@@ -31,7 +31,7 @@ pluginManagement {
 ```
 buildscript {
     dependencies {
-        classpath "com.github.coolxinxin:ClassResGuard:1.0.4"
+        classpath "com.github.coolxinxin:ClassResGuard:1.0.5"
     }
 }
 ```
@@ -147,14 +147,12 @@ classResGuard {
 classResGuard {
     //dir的前缀名称,配置同上
     dirPrefixName = ["leo"]
-    //配置修改dir的package,加上这个包名是为了更精确找到防止误改
-    dirPackage = "com.leos.superplugin"
 }
 ```
 
 ### 4.renameRes
 
-该任务是一个修改res资源文件的任务,注:class文件中使用了dataBinding或viewBinding的是不会同步改到的,需要自己手动去修改
+该任务是一个修改res资源文件的任务,class中的binding名称也会相对应的修改,无需手动修改任何文件
 
 ```
 classResGuard {
