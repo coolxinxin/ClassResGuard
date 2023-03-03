@@ -1,5 +1,7 @@
 package com.leos.superplugin.entension
 
+import java.io.File
+
 
 /**
  *   █████▒█    ██  ▄████▄   ██ ▄█▀       ██████╗ ██╗   ██╗ ██████╗
@@ -27,7 +29,7 @@ fun String.getClassName(): String {
 }
 
 fun String.getDirName(): String {
-    val index = lastIndexOf("\\")
+    val index = lastIndexOf(File.separator)
     return if (index == -1) "" else substring(index + 1)
 }
 

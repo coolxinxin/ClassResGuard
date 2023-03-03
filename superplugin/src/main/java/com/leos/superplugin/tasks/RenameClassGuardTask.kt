@@ -50,10 +50,17 @@ open class RenameClassGuardTask @Inject constructor(
     }
 
     private fun renameClass(file: File) {
-        val path = file.path.replace("\\", ".").removeSuffix()
-        val startIndex = path.lastIndexOf("src.main.java.")
+        val path = file.path.replace(File.separator, ".").removeSuffix()
+        val javaPkg = "src.main.java."
+        val kotlinPkg = "src.main.kotlin."
+        var startIndex = path.lastIndexOf(javaPkg)
+        var isJavaPkg = true
         if (startIndex == -1) {
-            throw IllegalArgumentException("index exception, index can not be -1")
+            isJavaPkg = false
+            startIndex = path.lastIndexOf(kotlinPkg)
+            if (startIndex == -1) {
+                throw IllegalArgumentException("Only src\\main\\java or src\\main\\kotlin directories are supported")
+            }
         }
         val oldName = file.name.removeSuffix()
         val classPrefixNameArray = configExtension.classPrefixName
@@ -66,7 +73,8 @@ open class RenameClassGuardTask @Inject constructor(
             classPrefixNameArray[random.nextInt(classPrefixNameArray.size)]
         }
         val newName = "$classPrefixName${oldName}"
-        val oldClassPath = path.substring(startIndex + 14, path.length)
+        val length = if (isJavaPkg) javaPkg.length else kotlinPkg.length
+        val oldClassPath = path.substring(startIndex + length, path.length)
         val oldClassDir = oldClassPath.getDirPath()
         val newClassPath = "${oldClassDir}.${newName}"
         file.renameTo(File(file.absolutePath.replace(oldName, newName)))

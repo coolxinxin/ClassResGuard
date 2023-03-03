@@ -61,16 +61,16 @@ open class RenameDirGuardTask @Inject constructor(
         } else {
             dirPrefixNameArray[random.nextInt(dirPrefixNameArray.size)]
         }
-        val startIndex = file.parent.replace("\\", ".").lastIndexOf("src.main.java.")
+        val startIndex = file.parent.replace(File.separator, ".").lastIndexOf("src.main.java.")
         if (startIndex == -1) {
             throw IllegalArgumentException("index exception, index can not be -1")
         }
         val newName = "${dirPrefixName.lowercase()}$oldName"
-        val newDirPath = file.parentFile.parent + "\\${newName}"
+        val newDirPath = file.parentFile.parent + "${File.separator}${newName}"
         val oldClassPath =
-            file.parent.replace("\\", ".").substring(startIndex + 14, file.parent.length)
+            file.parent.replace(File.separator, ".").substring(startIndex + 14, file.parent.length)
         val newClassPath =
-            newDirPath.replace("\\", ".").substring(startIndex + 14, newDirPath.length)
+            newDirPath.replace(File.separator, ".").substring(startIndex + 14, newDirPath.length)
         obfuscateAllClass(project.javaDir(), oldClassPath, newClassPath)
         val manifestFile = project.manifestFile()
         val xmlContent = mutableListOf<String>()
