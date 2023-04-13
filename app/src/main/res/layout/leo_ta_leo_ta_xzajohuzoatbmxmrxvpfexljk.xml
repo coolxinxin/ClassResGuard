@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<SearchView android:id="@+id/svmwedumodzzqqqk" android:layout_width="48dp" android:layout_height="29dp"/>
+<TimePicker android:id="@+id/vqmedppszvnfzybq" android:layout_width="142dp" android:layout_height="33dp"/>
+<RadioButton android:id="@+id/pycpgewzdobbprty" android:layout_width="26dp" android:layout_height="21dp"/>
+<SeekBar android:id="@+id/isnpydmcppcqtcjz" android:layout_width="46dp" android:layout_height="60dp"/>
+<TextView android:id="@+id/tchcxdufipjwcikw" android:layout_width="47dp" android:layout_height="4dp"/>
+<TimePicker android:id="@+id/lizjerplnjnioyiy" android:layout_width="138dp" android:layout_height="13dp"/>
+<SurfaceView android:id="@+id/ldwfviakzkfgqsdy" android:layout_width="43dp" android:layout_height="48dp"/>
+<TextView android:id="@+id/peiqvfwddxrmaxkv" android:layout_width="122dp" android:layout_height="26dp"/>
+<LinearLayout android:id="@+id/qufkgjsqybydidft" android:layout_width="141dp" android:layout_height="37dp"/>
+<EditText android:id="@+id/imfojlchdjowvzxp" android:layout_width="79dp" android:layout_height="1dp"/>
+</LinearLayout>

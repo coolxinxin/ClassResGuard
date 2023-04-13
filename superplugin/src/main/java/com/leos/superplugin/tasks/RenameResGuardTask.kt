@@ -1,9 +1,6 @@
 package com.leos.superplugin.tasks
 
-import com.leos.superplugin.entension.ConfigExtension
-import com.leos.superplugin.entension.javaDir
-import com.leos.superplugin.entension.replaceWords
-import com.leos.superplugin.entension.resDir
+import com.leos.superplugin.entension.*
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.TaskAction
@@ -65,7 +62,9 @@ open class RenameResGuardTask @Inject constructor(
                                 || name.startsWith("drawable")
                     }?.toMutableList() ?: return
                     project.files(resFileList).asFileTree.forEach { xmlFile ->
-                        replaceXmlText(oldName, newName, xmlFile)
+                        if (xmlFile.path.getClassName().lowercase().contains("xml")){
+                            replaceXmlText(oldName, newName, xmlFile)
+                        }
                     }
                     obfuscateAllClass(project.javaDir(), oldName, newName, path)
                 }

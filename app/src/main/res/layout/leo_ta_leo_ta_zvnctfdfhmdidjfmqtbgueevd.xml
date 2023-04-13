@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<EditText android:id="@+id/tfqdzhdaqwblhsol" android:layout_width="30dp" android:layout_height="9dp"/>
+<SearchView android:id="@+id/xttcgujlewrgadtp" android:layout_width="117dp" android:layout_height="62dp"/>
+<Spinner android:id="@+id/jnvuxitmtyiimiiw" android:layout_width="149dp" android:layout_height="78dp"/>
+<RelativeLayout android:id="@+id/qgnszmpoqvnxoqae" android:layout_width="95dp" android:layout_height="54dp"/>
+<TextView android:id="@+id/pjmtjmoxmrsofdoh" android:layout_width="37dp" android:layout_height="27dp"/>
+<FrameLayout android:id="@+id/lksnzibnmrhqtmwr" android:layout_width="62dp" android:layout_height="64dp"/>
+<ProgressBar android:id="@+id/yxzlxkbywkvrrgcn" android:layout_width="59dp" android:layout_height="48dp"/>
+<Button android:id="@+id/owyzrdvzcewcotec" android:layout_width="92dp" android:layout_height="75dp"/>
+<Spinner android:id="@+id/rmpuorihxrxsfpkl" android:layout_width="41dp" android:layout_height="50dp"/>
+<EditText android:id="@+id/misvrjhatxyhaefm" android:layout_width="136dp" android:layout_height="45dp"/>
+</LinearLayout>

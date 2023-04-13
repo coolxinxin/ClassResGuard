@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+<TimePicker android:id="@+id/wsieydrbfillhbxs" android:layout_width="121dp" android:layout_height="48dp"/>
+<SurfaceView android:id="@+id/ywjvlgrfgjkflanx" android:layout_width="0dp" android:layout_height="68dp"/>
+<FrameLayout android:id="@+id/lfsvmsyyvakoqfpu" android:layout_width="32dp" android:layout_height="41dp"/>
+<CheckBox android:id="@+id/pcmbswetzrbrpbij" android:layout_width="95dp" android:layout_height="34dp"/>
+<Spinner android:id="@+id/nuesrlstahpgtnoh" android:layout_width="138dp" android:layout_height="73dp"/>
+<RelativeLayout android:id="@+id/mtzaocfyskcqsgqu" android:layout_width="4dp" android:layout_height="22dp"/>
+<Spinner android:id="@+id/ezxfgjtrtghcdann" android:layout_width="130dp" android:layout_height="64dp"/>
+<SurfaceView android:id="@+id/bithpyyzrfofcyul" android:layout_width="147dp" android:layout_height="65dp"/>
+<FrameLayout android:id="@+id/dmfyagqzakvxbewm" android:layout_width="131dp" android:layout_height="32dp"/>
+<Spinner android:id="@+id/vpreibqozzcvqvip" android:layout_width="82dp" android:layout_height="21dp"/>
+</LinearLayout>
