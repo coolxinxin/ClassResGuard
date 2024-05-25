@@ -23,6 +23,11 @@ fun String.removeSuffix(): String {
     return if (index == -1) this else substring(0, index)
 }
 
+fun String.getSuffix(): String {
+    val index = lastIndexOf('.')
+    return if (index == -1) this else substring(index + 1)
+}
+
 fun String.getClassName(): String {
     val index = lastIndexOf(".")
     return if (index == -1) "" else substring(index + 1)

@@ -52,6 +52,9 @@ open class RenameDirGuardTask @Inject constructor(
 
     private fun renameDir(file: File, needRename: Boolean) {
         val oldName = file.parent.getDirName()
+        if(oldName.isBlank()){
+            return
+        }
         val dirPrefixNameArray = configExtension.dirPrefixName
         if (dirPrefixNameArray.isEmpty()) {
             throw IllegalArgumentException("The dirPrefixName has not been configured yet. Please configure the dirPrefixName before running the task")

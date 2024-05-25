@@ -23,6 +23,8 @@ open class ConfigExtension {
 
     var resPrefixName: Array<String> = arrayOf("")
 
+    var filterSuffixFiles: Array<String> = arrayOf("")
+
     var changeResDir: Array<String>? = null
 
     var junkPackage = "com.leos.superplugin"

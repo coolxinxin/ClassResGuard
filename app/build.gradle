@@ -3,7 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
 }
 
-apply from: 'classresguard.gradle'
+//apply from: 'classresguard.gradle'
 
 android {
     namespace 'com.leos.superplugin'

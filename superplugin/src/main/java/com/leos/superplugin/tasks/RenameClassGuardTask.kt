@@ -51,6 +51,10 @@ open class RenameClassGuardTask @Inject constructor(
 
     private fun renameClass(file: File) {
         val path = file.path.replace(File.separator, ".").removeSuffix()
+        val suffix = file.name.getSuffix()
+        if (configExtension.filterSuffixFiles.contains(suffix)){
+            return
+        }
         val javaPkg = "src.main.java."
         val kotlinPkg = "src.main.kotlin."
         var startIndex = path.lastIndexOf(javaPkg)
@@ -63,6 +67,9 @@ open class RenameClassGuardTask @Inject constructor(
             }
         }
         val oldName = file.name.removeSuffix()
+        if (oldName.isBlank()) {
+            return
+        }
         val classPrefixNameArray = configExtension.classPrefixName
         if (classPrefixNameArray.isEmpty()) {
             throw IllegalArgumentException("The classPrefixName has not been configured yet. Please configure the classPrefixName before running the task")
@@ -96,7 +103,9 @@ open class RenameClassGuardTask @Inject constructor(
             when {
                 parentName.startsWith("navigation")
                         || parentName.startsWith("layout") -> {
-                    xmlFile.writeText(xmlFile.readText().replaceWords(oldClassPath, newClassPath))
+                    xmlFile.writeText(
+                        xmlFile.readText().replaceWords(oldClassPath, newClassPath)
+                    )
                 }
                 xmlFile.name == "AndroidManifest.xml" -> {
                     val xmlContent = mutableListOf<String>()

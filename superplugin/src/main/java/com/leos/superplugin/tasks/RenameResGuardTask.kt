@@ -50,16 +50,24 @@ open class RenameResGuardTask @Inject constructor(
                 } else {
                     xmlPrefixNameArray[random.nextInt(xmlPrefixNameArray.size)]
                 }
+                val suffix = it.name.getSuffix()
+                println("renameRes:${suffix}")
+                if (configExtension.filterSuffixFiles.contains(suffix)){
+                    return
+                }
                 val newFileName = "${xmlPrefixName.lowercase()}_${it.name}"
                 it.renameTo(File("${file.absolutePath}/${newFileName}"))
                 if (path.startsWith("mipmap") || path.startsWith("drawable") || path.startsWith("layout")
                     || name.startsWith("navigation")
                 ) {
                     val oldName = it.name.substring(0, it.name.indexOf("."))
+                    if(oldName.isBlank()){
+                        return
+                    }
                     val newName = newFileName.substring(0, newFileName.indexOf("."))
                     val resFileList = project.resDir().listFiles { _, name ->
                         name.startsWith("layout") || name.startsWith("navigation")
-                                || name.startsWith("drawable")
+                                || name.startsWith("drawable") || name.startsWith("values")
                     }?.toMutableList() ?: return
                     project.files(resFileList).asFileTree.forEach { xmlFile ->
                         if (xmlFile.path.getClassName().lowercase().contains("xml")){

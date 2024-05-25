@@ -30,7 +30,7 @@ pluginManagement {
 ```
 buildscript {
     dependencies {
-        classpath "com.github.coolxinxin:ClassResGuard:1.0.7"
+        classpath "com.github.coolxinxin:ClassResGuard:1.0.8"
     }
 }
 ```
@@ -45,6 +45,8 @@ classResGuard {
     //renameClass Task
     //Class的前缀名称,固定前缀配单个,随机前缀配置需要随机的前缀数组["Large","SuperT"]
     classPrefixName = ["Leo"]
+    //需要过滤后缀的文件
+    filterSuffixFiles = ["txt","swift","dart"]
     //renameDir Task
     //dir的前缀名称,配置同上
     dirPrefixName = ["leo"]
